@@ -1,0 +1,94 @@
+
+package com.anzy;
+
+public class TestDemo {
+
+	public int insert(node r, int num, int count) {
+		if (root == null) {
+			root = r;
+			return count;
+		}
+		node temp = root;
+		node nNew = new node(num);
+		while (true) {
+			if (temp.data > num) {
+				temp.min += 1;
+				if (temp.l == null) {
+					temp.l = nNew;
+					return count;
+				}
+				temp = temp.l;
+				// temp.l= insert(root.l, num, count);
+			} else {
+				if (temp.r == null) {
+					count += temp.min + 1;
+					temp.r = nNew;
+					return count;
+				} else {
+					count += temp.min + 1;
+					temp = temp.r;
+				}
+			}
+		}
+
+	}
+
+	public node root;
+
+	public TestDemo() {
+		root = null;
+	}
+
+	public void smallRight(int[] numers) {
+		// node root = null;
+		TestDemo t = new TestDemo();
+		for (int i = numers.length - 1; i >= 0; --i) {
+			int temp = insert(new node(numers[i]), numers[i], 0);
+			numers[i] = temp;
+			// System.out.print(+",");
+		}
+		for (int i = 0; i <= numers.length - 1; ++i) {
+			System.out.print(numers[i] + "   ");
+		}
+		// display(root);
+	}
+
+	public void display(node root) {
+		if (root != null) {
+			display(root.l);
+			System.out.println(" D" + root.data + ",  M  " + root.min);
+			display(root.r);
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr[] = { 5, 4, 3, 2, 1 };
+		// {1, 2, 3, 4, 5};
+		// {12, 1, 2, 3, 0, 11, 4};
+		// { 10, 6, 5, 3, 4, 56, 7, 8, 2, 1 };
+		TestDemo t = new TestDemo();
+		t.smallRight(arr);
+		/*
+		 * int count; for (int temp : arr) { count = 0; for (int val : arr) { if
+		 * (val < temp) { count++; } } System.out.print(" " + count);
+		 * 
+		 * }
+		 */
+
+	}
+
+}
+
+class node {
+	public int data, min = 0;
+	node l, r;
+
+	public node(int num) {
+		this.l = null;
+		this.r = null;
+		this.data = num;
+		this.min = 0;
+		// return n;
+	}
+}
